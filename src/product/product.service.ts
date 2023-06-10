@@ -17,7 +17,7 @@ export class ProductService {
     return this.productRepository.save(product);
   }
 
-  async getProductById(id: string): Promise<Product> {
+  async getProductById(id: number): Promise<Product> {
     return this.productRepository.findOneByOrFail({
       id: Number(id),
     });
@@ -28,7 +28,7 @@ export class ProductService {
   }
 
   async updateProduct(
-    id: string,
+    id: number,
     updateProductDto: UpdateProductDto,
   ): Promise<Product> {
     const product = await this.getProductById(id);
@@ -41,7 +41,7 @@ export class ProductService {
     return this.productRepository.save(product);
   }
 
-  async deleteProduct(id: string): Promise<void> {
+  async deleteProduct(id: number): Promise<void> {
     await this.productRepository.delete(id);
   }
 }

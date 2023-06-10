@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateProductDto {
+  category: String!
+  description: String!
+  name: String!
+  price: Float!
+  size: String!
+}
+
 type LoginResponse {
   access_token: String!
   user: User!
@@ -13,13 +21,35 @@ input LoginUserInput {
 }
 
 type Mutation {
+  createProduct(input: CreateProductDto!): Product!
+  deleteProduct(id: String!): Boolean!
   login(loginUserInput: LoginUserInput!): LoginResponse!
   signup(loginUserInput: LoginUserInput!): User!
+  updateProduct(id: String!, input: UpdateProductDto!): Product!
+}
+
+type Product {
+  category: String!
+  description: String!
+  id: Int!
+  name: String!
+  price: Float!
+  size: String!
 }
 
 type Query {
+  product(id: String!): Product!
+  products: [Product!]!
   user(username: String!): User!
   users: [User!]!
+}
+
+input UpdateProductDto {
+  category: String
+  description: String
+  name: String
+  price: Float
+  size: String
 }
 
 type User {
