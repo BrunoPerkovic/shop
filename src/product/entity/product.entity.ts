@@ -4,27 +4,27 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 @ObjectType()
 export class Product {
-  @PrimaryGeneratedColumn()
   @Field(() => Int)
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
   @Field()
+  @Column()
   name: string;
 
-  @Column()
   @Field()
-  category: string;
+  @Column('integer')
+  categoryId: number;
 
-  @Column('float')
   @Field(() => Float)
+  @Column('float')
   price: number;
 
-  @Column()
   @Field()
+  @Column()
   size: string;
 
-  @Column()
   @Field()
+  @Column()
   description: string;
 }

@@ -29,7 +29,7 @@ type Mutation {
 }
 
 type Product {
-  category: String!
+  categoryId: Float!
   description: String!
   id: Int!
   name: String!
@@ -53,6 +53,12 @@ input UpdateProductDto {
 }
 
 type User {
+  addressId: Float!
+  email: String!
+  firstName: String!
   id: Int!
-  username: String!
+  lastName: String!
+  password: String!
+  phone: String!
+  userName: String!
 }

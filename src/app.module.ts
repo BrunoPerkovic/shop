@@ -27,6 +27,8 @@ import { Product } from './product/entity/product.entity';
         database: configService.get<string>('DB_NAME'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true,
+        retryAttempts: 10,
+        retryDelay: 5000,
       }),
     }),
     TypeOrmModule.forFeature([Product]),
