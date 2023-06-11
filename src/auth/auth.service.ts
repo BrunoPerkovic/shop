@@ -3,7 +3,7 @@ import { UsersService } from 'src/users/users.service';
 import { User } from 'src/users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { LoginUserInput } from './dto/login-user-input';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -36,7 +36,7 @@ export class AuthService {
     };
   }
 
-  async signup(loginUserInput: LoginUserInput) {
+  async signup(loginUserInput: LoginUserDto) {
     const user = await this.usersService.findOne(loginUserInput.username);
 
     if (user) {

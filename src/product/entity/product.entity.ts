@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
@@ -16,8 +16,8 @@ export class Product {
   @Field()
   category: string;
 
-  @Column()
-  @Field()
+  @Column('float')
+  @Field(() => Float)
   price: number;
 
   @Column()
