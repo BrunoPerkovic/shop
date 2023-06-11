@@ -10,7 +10,7 @@ export class AuthResolver {
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
-  ) { }
+  ) {}
 
   @Mutation(() => LoginResponseDto)
   async login(
