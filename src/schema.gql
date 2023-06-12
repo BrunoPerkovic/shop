@@ -2,8 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Category {
+  categoryName: String!
+  id: Int!
+  products: [Product!]!
+}
+
 input CreateProductDto {
-  category: String!
+  categories: [Int!]!
   description: String!
   name: String!
   price: Float!
@@ -21,15 +27,15 @@ input LoginUserDto {
 }
 
 type Mutation {
-  createProduct(input: CreateProductDto!): Product!
-  deleteProduct(id: String!): Boolean!
-  login(loginUserInput: LoginUserDto!): LoginResponseDto!
-  signup(loginUserInput: LoginUserDto!): User!
-  updateProduct(id: String!, input: UpdateProductDto!): Product!
+  createProduct(createProductDto: CreateProductDto!): Product!
+  deleteProduct(id: Int!): Boolean!
+  login(loginUserDto: LoginUserDto!): LoginResponseDto!
+  signup(loginUserDto: LoginUserDto!): User!
+  updateProduct(id: Float!, input: UpdateProductDto!): Product!
 }
 
 type Product {
-  categoryId: Float!
+  categories: [Category!]!
   description: String!
   id: Int!
   name: String!
@@ -45,7 +51,7 @@ type Query {
 }
 
 input UpdateProductDto {
-  category: String
+  categories: [Int!]
   description: String
   name: String
   price: Float
@@ -54,6 +60,7 @@ input UpdateProductDto {
 
 type User {
   addressId: Float!
+  deleted: Boolean!
   email: String!
   firstName: String!
   id: Int!

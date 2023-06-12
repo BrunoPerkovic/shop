@@ -14,22 +14,22 @@ export class AuthResolver {
 
   @Mutation(() => LoginResponseDto)
   async login(
-    @Args('loginUserInput') loginUserInput: LoginUserDto,
+    @Args('loginUserDto') loginUserDto: LoginUserDto,
     @Context() context,
   ) {
     return this.authService.login(context.user);
   }
 
   @Mutation(() => User)
-  async signup(@Args('loginUserInput') loginUserInput: LoginUserDto) {
-    const user = await this.usersService.findOne(loginUserInput.username);
+  async signup(@Args('loginUserDto') loginUserDto: LoginUserDto) {
+    const user = await this.usersService.findOne(loginUserDto.username);
 
     if (user) {
       throw new Error('User Already Exists');
     }
 
     return this.usersService.create({
-      ...loginUserInput,
+      ...loginUserDto,
     });
   }
 }

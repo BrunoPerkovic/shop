@@ -1,5 +1,12 @@
 import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
+import { Category } from 'src/category/entity/category.entity';
 
 @Entity()
 @ObjectType()
@@ -12,10 +19,6 @@ export class Product {
   @Column()
   name: string;
 
-  @Field()
-  @Column('integer')
-  categoryId: number;
-
   @Field(() => Float)
   @Column('float')
   price: number;
@@ -27,4 +30,9 @@ export class Product {
   @Field()
   @Column()
   description: string;
+
+  @Field(() => [Category])
+  @ManyToMany(() => Category, (category) => category.products)
+  @JoinTable()
+  categories: Category[];
 }

@@ -1,4 +1,4 @@
-import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
+import { Resolver, Query, Args, Mutation, Int } from '@nestjs/graphql';
 import { Product } from './entity/product.entity';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -10,7 +10,7 @@ export class ProductResolver {
 
   @Mutation(() => Product)
   async createProduct(
-    @Args('input') createProductDto: CreateProductDto,
+    @Args('createProductDto') createProductDto: CreateProductDto,
   ): Promise<Product> {
     return await this.productService.createProduct(createProductDto);
   }
@@ -27,17 +27,17 @@ export class ProductResolver {
 
   @Mutation(() => Product)
   async updateProduct(
-    @Args('id') id: string,
+    @Args('id') id: number,
     @Args('input') updateProductDto: UpdateProductDto,
   ): Promise<Product> {
-    return await this.productService.updateProduct(
-      Number(id),
-      updateProductDto,
-    );
+    return await this.productService.updateProduct(id, updateProductDto);
   }
 
   @Mutation(() => Boolean)
-  async deleteProduct(@Args('id') id: string): Promise<void> {
-    return await this.productService.deleteProduct(Number(id));
+  async deleteProduct(
+    @Args('id', { type: () => Int }) id: number,
+  ): Promise<boolean> {
+    await this.productService.deleteProduct(id);
+    return true;
   }
 }

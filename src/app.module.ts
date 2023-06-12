@@ -12,6 +12,7 @@ import { ProductService } from './product/product.service';
 import { ProductResolver } from './product/product.resolver';
 import { ProductModule } from './product/product.module';
 import { Product } from './product/entity/product.entity';
+import { Category } from './category/entity/category.entity';
 
 @Module({
   imports: [
@@ -29,9 +30,10 @@ import { Product } from './product/entity/product.entity';
         synchronize: true,
         retryAttempts: 10,
         retryDelay: 5000,
+        autoLoadEntities: true,
       }),
     }),
-    TypeOrmModule.forFeature([Product]),
+    TypeOrmModule.forFeature([Product, Category]),
     UsersModule,
     GraphQLModule.forRoot({
       sortSchema: true,
