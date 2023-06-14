@@ -36,7 +36,7 @@ export class ProductService {
 
   async getProductById(id: number): Promise<Product> {
     return this.productRepository.findOneByOrFail({
-      id: Number(id),
+      id: id,
     });
   }
 
@@ -54,8 +54,13 @@ export class ProductService {
       throw new Error(`There is no product with id:${id}`);
     }
 
-    Object.assign(product, updateProductDto);
-    return this.productRepository.save(product);
+    product.name = updateProductDto.name;
+    product.price = updateProductDto.price;
+    product.size = updateProductDto.size;
+    product.description = updateProductDto.description;
+    product.categories = updateProductDto.categories;
+
+    return await this.productRepository.save(product);
   }
 
   async deleteProduct(id: number): Promise<void> {

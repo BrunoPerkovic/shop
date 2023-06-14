@@ -44,7 +44,7 @@ type Product {
 }
 
 type Query {
-  product(id: String!): Product!
+  product(id: Float!): Product!
   products: [Product!]!
   user(username: String!): User!
   users: [User!]!

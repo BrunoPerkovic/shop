@@ -21,8 +21,8 @@ export class ProductResolver {
   }
 
   @Query(() => Product, { name: 'product' })
-  async getProductById(@Args('id') id: string): Promise<Product> {
-    return await this.productService.getProductById(Number(id));
+  async getProductById(@Args('id') id: number): Promise<Product> {
+    return await this.productService.getProductById(id);
   }
 
   @Mutation(() => Product)

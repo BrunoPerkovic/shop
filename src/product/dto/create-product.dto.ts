@@ -1,4 +1,5 @@
 import { InputType, Field, Float, Int } from '@nestjs/graphql';
+import { Category } from 'src/category/entity/category.entity';
 
 @InputType()
 export class CreateProductDto {
@@ -6,7 +7,7 @@ export class CreateProductDto {
   name: string;
 
   @Field(() => [Int])
-  categories: number[];
+  categories: Category[];
 
   @Field(() => Float)
   price: number;

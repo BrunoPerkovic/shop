@@ -13,6 +13,7 @@ import { ProductResolver } from './product/product.resolver';
 import { ProductModule } from './product/product.module';
 import { Product } from './product/entity/product.entity';
 import { Category } from './category/entity/category.entity';
+import { AddressModule } from './address/address.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { Category } from './category/entity/category.entity';
       isGlobal: true,
     }),
     ProductModule,
+    AddressModule,
   ],
   controllers: [AppController],
   providers: [AppService, ProductService, ProductResolver],

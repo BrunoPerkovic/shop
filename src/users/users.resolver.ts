@@ -8,11 +8,11 @@ export class UsersResolver {
 
   @Query(() => [User], { name: 'users' })
   findAll() {
-    return this.usersService.findAll();
+    return this.usersService.getAllUsers();
   }
 
   @Query(() => User, { name: 'user' })
-  findOne(@Args('username') username: string) {
-    return this.usersService.findOne(username);
+  findOne(@Args('username') id: number) {
+    return this.usersService.getUserById(id);
   }
 }

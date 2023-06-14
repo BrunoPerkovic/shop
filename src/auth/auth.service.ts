@@ -12,8 +12,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.usersService.findOne(username);
+  async validateUser(id: number, password: string): Promise<any> {
+    const user = await this.usersService.getUserById(id);
 
     const valid = await bcrypt.compare(password, user?.password);
 
@@ -36,16 +36,16 @@ export class AuthService {
     };
   }
 
-  async signup(loginUserInput: LoginUserDto) {
-    const user = await this.usersService.findOne(loginUserInput.username);
+  async signup(id: number, loginUserInput: LoginUserDto) {
+    const user = await this.usersService.getUserById(id);
 
     if (user) {
       throw new Error(`User already exists`);
     }
 
-    const password = await bcrypt.hash(loginUserInput.password, 10);
+    const password = await bcrypt.hash(user.password, 10);
 
-    return this.usersService.create({
+    return this.usersService.createUser({
       ...loginUserInput,
       password,
     });
