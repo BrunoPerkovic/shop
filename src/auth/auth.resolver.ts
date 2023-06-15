@@ -10,7 +10,7 @@ export class AuthResolver {
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
-  ) {}
+  ) { }
 
   @Mutation(() => LoginResponseDto)
   async login(
@@ -20,7 +20,7 @@ export class AuthResolver {
     return this.authService.loginUser(context.user);
   }
 
-  @Mutation(() => User)
+  /* @Mutation(() => User)
   async signup(@Args('loginUserDto') id: number, loginUserDto: LoginUserDto) {
     const user = await this.usersService.getUserById(id);
 
@@ -29,5 +29,5 @@ export class AuthResolver {
     }
 
     return this.usersService.createUser();
-  }
+  } */
 }

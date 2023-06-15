@@ -9,23 +9,10 @@ import { LoginResponseDto } from './dto/login-response.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService,
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
   ) {}
 
-  /* async validateUser(id: number, password: string): Promise<any> {
-    const user = await this.usersService.getUserById(id);
-
-    const valid = await bcrypt.compare(password, user?.password);
-
-    if (user && valid) {
-      const { ...result } = user;
-
-      return result;
-    }
-
-    return null;
-  } */
   async validateUser(email: string, password: string): Promise<any> {
     //const user = await this.usersService.getUserById(id);
     const user = await this.usersService.getUserByEmail(email);
@@ -54,13 +41,6 @@ export class AuthService {
     };
   }
 
-  /* async login(user: User) {
-    const payload = { sub: user.id, username: user.userName };
-    return {
-      acces_token: await this.jwtService.signAsync(payload),
-    };
-  }
- */
   /* async signup(id: number, loginUserInput: LoginUserDto) {
     const user = await this.usersService.getUserById(id);
 
@@ -75,6 +55,8 @@ export class AuthService {
       password,
     });
   } */
+
+  //async signupUser() {}
 
   async loginUser(loginUserDto: LoginUserDto): Promise<LoginResponseDto> {
     const user = await this.validateUser(

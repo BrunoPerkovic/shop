@@ -14,18 +14,18 @@ export class UsersService {
     private readonly authService: AuthService,
   ) {}
 
-  async createUser(createUserInput: CreateUserDto): Promise<User> {
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
     try {
       const saltOrRounds = 10;
 
       const user = this.userRepository.create({
-        firstName: createUserInput.firstName,
-        lastName: createUserInput.lastName,
-        addressId: createUserInput.addressId,
-        userName: createUserInput.userName,
-        password: await bcrypt.hash(createUserInput.password, saltOrRounds),
-        email: createUserInput.email,
-        phone: createUserInput.phone,
+        firstName: createUserDto.firstName,
+        lastName: createUserDto.lastName,
+        addressId: createUserDto.addressId,
+        userName: createUserDto.userName,
+        password: await bcrypt.hash(createUserDto.password, saltOrRounds),
+        email: createUserDto.email,
+        phone: createUserDto.phone,
         deleted: false,
       });
 

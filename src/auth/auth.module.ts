@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthResolver } from './auth.resolver';
-import { LocalStrategy } from './local.strategy';
+import { LocalStrategy } from './strategy/local.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from 'src/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './jwt.strategy';
+import { JwtStrategy } from './strategy/jwt.strategy';
 import { ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
-import { GqlJwtAuthGuard } from './gql-authguard';
+import { GqlJwtAuthGuard } from './guards/gql-authguard';
 
 @Module({
   imports: [
@@ -32,4 +32,4 @@ import { GqlJwtAuthGuard } from './gql-authguard';
   ],
   exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }

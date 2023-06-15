@@ -3,7 +3,7 @@ import { Reflector } from '@nestjs/core';
 import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
-import { IS_PUBLIC_KEY } from './custom-metadata';
+import { IS_PUBLIC_KEY } from '../custom-metadata';
 
 @Injectable()
 export class GqlJwtAuthGuard extends AuthGuard('jwt') {
