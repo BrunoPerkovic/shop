@@ -10,14 +10,14 @@ export class AuthResolver {
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
-  ) { }
+  ) {}
 
   @Mutation(() => LoginResponseDto)
   async login(
     @Args('loginUserDto') loginUserDto: LoginUserDto,
     @Context() context,
   ) {
-    return this.authService.login(context.user);
+    return this.authService.loginUser(context.user);
   }
 
   @Mutation(() => User)
@@ -28,6 +28,6 @@ export class AuthResolver {
       throw new Error('User Already Exists');
     }
 
-    return this.usersService.createUser(...loginUserDto);
+    return this.usersService.createUser();
   }
 }

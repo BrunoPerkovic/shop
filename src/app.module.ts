@@ -14,6 +14,8 @@ import { ProductModule } from './product/product.module';
 import { Product } from './product/entity/product.entity';
 import { Category } from './category/entity/category.entity';
 import { AddressModule } from './address/address.module';
+import { Address } from './address/entity/address.entity';
+import { User } from './users/entities/user.entity';
 
 @Module({
   imports: [
@@ -34,7 +36,7 @@ import { AddressModule } from './address/address.module';
         autoLoadEntities: true,
       }),
     }),
-    TypeOrmModule.forFeature([Product, Category]),
+    TypeOrmModule.forFeature([Product, Category, Address, User]),
     UsersModule,
     GraphQLModule.forRoot({
       sortSchema: true,

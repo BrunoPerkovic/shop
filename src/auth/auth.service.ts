@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { User } from 'src/users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { LoginUserDto } from './dto/login-user.dto';
+import { LoginResponseDto } from './dto/login-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +13,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(id: number, password: string): Promise<any> {
+  /* async validateUser(id: number, password: string): Promise<any> {
     const user = await this.usersService.getUserById(id);
 
     const valid = await bcrypt.compare(password, user?.password);
@@ -24,19 +25,43 @@ export class AuthService {
     }
 
     return null;
+  } */
+  async validateUser(email: string, password: string): Promise<any> {
+    //const user = await this.usersService.getUserById(id);
+    const user = await this.usersService.getUserByEmail(email);
+
+    if (user) {
+      if (await bcrypt.compare(password, user.password)) {
+        delete user.password;
+        return user;
+      }
+    }
+    return null;
   }
 
-  async login(user: User) {
+  async generateUserCredentials(user: User): Promise<LoginResponseDto> {
+    const payload = {
+      email: user.email,
+      userName: user.userName,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phone: user.phone,
+    };
+
     return {
-      access_token: this.jwtService.sign({
-        username: user.userName,
-        sub: user.id,
-      }),
-      user,
+      access_token: this.jwtService.sign(payload),
+      user: user,
     };
   }
 
-  async signup(id: number, loginUserInput: LoginUserDto) {
+  /* async login(user: User) {
+    const payload = { sub: user.id, username: user.userName };
+    return {
+      acces_token: await this.jwtService.signAsync(payload),
+    };
+  }
+ */
+  /* async signup(id: number, loginUserInput: LoginUserDto) {
     const user = await this.usersService.getUserById(id);
 
     if (user) {
@@ -49,5 +74,20 @@ export class AuthService {
       ...loginUserInput,
       password,
     });
+  } */
+
+  async loginUser(loginUserDto: LoginUserDto): Promise<LoginResponseDto> {
+    const user = await this.validateUser(
+      loginUserDto.email,
+      loginUserDto.password,
+    );
+
+    if (!user) {
+      throw new BadRequestException(
+        `Email or password are invalid. Please try again`,
+      );
+    } else {
+      return this.generateUserCredentials(user);
+    }
   }
 }

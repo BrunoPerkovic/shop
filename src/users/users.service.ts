@@ -4,21 +4,26 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
+import * as bcrypt from 'bcrypt';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private readonly authService: AuthService,
   ) {}
 
   async createUser(createUserInput: CreateUserDto): Promise<User> {
     try {
+      const saltOrRounds = 10;
+
       const user = this.userRepository.create({
         firstName: createUserInput.firstName,
         lastName: createUserInput.lastName,
         addressId: createUserInput.addressId,
         userName: createUserInput.userName,
-        password: createUserInput.password,
+        password: await bcrypt.hash(createUserInput.password, saltOrRounds),
         email: createUserInput.email,
         phone: createUserInput.phone,
         deleted: false,
@@ -48,6 +53,12 @@ export class UsersService {
   async getUserById(id: number): Promise<User> {
     return await this.userRepository.findOneByOrFail({
       id: id,
+    });
+  }
+
+  async getUserByEmail(email: string): Promise<User> {
+    return await this.userRepository.findOneByOrFail({
+      email: email,
     });
   }
 

@@ -3,6 +3,6 @@ import { AddressService } from './address.service';
 import { AddressResolver } from './address.resolver';
 
 @Module({
-  providers: [AddressService, AddressResolver]
+  providers: [AddressService, AddressResolver],
 })
 export class AddressModule {}
