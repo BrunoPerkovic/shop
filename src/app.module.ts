@@ -13,7 +13,6 @@ import { ProductResolver } from './product/product.resolver';
 import { ProductModule } from './product/product.module';
 import { Product } from './product/entity/product.entity';
 import { Category } from './category/entity/category.entity';
-import { AddressModule } from './address/address.module';
 import { Address } from './address/entity/address.entity';
 import { User } from './users/entities/user.entity';
 
@@ -48,7 +47,6 @@ import { User } from './users/entities/user.entity';
       isGlobal: true,
     }),
     ProductModule,
-    AddressModule,
   ],
   controllers: [AppController],
   providers: [AppService, ProductService, ProductResolver],

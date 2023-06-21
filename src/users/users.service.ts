@@ -5,13 +5,11 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
-import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-    private readonly authService: AuthService,
   ) {}
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {

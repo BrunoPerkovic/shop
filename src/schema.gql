@@ -17,21 +17,19 @@ input CreateProductDto {
 }
 
 type LoginResponseDto {
+  """Generated access_token of the user"""
   access_token: String!
   user: User!
-}
-
-input LoginUserDto {
-  password: String!
-  username: String!
 }
 
 type Mutation {
   createProduct(createProductDto: CreateProductDto!): Product!
   deleteProduct(id: Int!): Boolean!
-  login(loginUserDto: LoginUserDto!): LoginResponseDto!
-  signup(loginUserDto: LoginUserDto!): User!
-  updateProduct(id: Float!, input: UpdateProductDto!): Product!
+  deleteUser(id: Int!): User!
+  login: LoginResponseDto!
+  signup(loginUserDto: Float!): User!
+  updateProduct(id: Float!, updateProductDto: UpdateProductDto!): Product!
+  updateUser(updateUserDto: UpdateUserDto!): User!
 }
 
 type Product {
@@ -46,7 +44,7 @@ type Product {
 type Query {
   product(id: Float!): Product!
   products: [Product!]!
-  user(username: String!): User!
+  user(username: Float!): User!
   users: [User!]!
 }
 
@@ -56,6 +54,18 @@ input UpdateProductDto {
   name: String
   price: Float
   size: String
+}
+
+input UpdateUserDto {
+  addressId: Float
+  deleted: Boolean
+  email: String
+  firstName: String
+  id: Int!
+  lastName: String
+  password: String
+  phone: String
+  userName: String
 }
 
 type User {

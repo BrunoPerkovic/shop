@@ -35,7 +35,7 @@ export class Address {
   @Field()
   @Column({ name: 'postal_code' })
   postalCode: number;
-
-  @ManyToMany(() => User, (user) => user.addresses)
-  users: User[];
+  /* 
+    @ManyToMany(() => User, (user) => user.addresses)
+    users: User[]; */
 }

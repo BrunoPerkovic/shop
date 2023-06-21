@@ -10,24 +10,21 @@ export class AuthResolver {
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
-  ) { }
+  ) {}
 
   @Mutation(() => LoginResponseDto)
-  async login(
-    @Args('loginUserDto') loginUserDto: LoginUserDto,
-    @Context() context,
-  ) {
+  async login(@Context() context) {
     return this.authService.loginUser(context.user);
   }
 
-  /* @Mutation(() => User)
-  async signup(@Args('loginUserDto') id: number, loginUserDto: LoginUserDto) {
+  @Mutation(() => User)
+  async signup(@Args('loginUserDto') id: number) {
     const user = await this.usersService.getUserById(id);
 
     if (user) {
       throw new Error('User Already Exists');
     }
 
-    return this.usersService.createUser();
-  } */
+    return this.usersService.createUser(user);
+  }
 }

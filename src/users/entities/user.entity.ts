@@ -47,7 +47,7 @@ export class User {
   @Column({ nullable: false, type: 'boolean' })
   deleted: boolean;
 
-  @ManyToMany(() => Address, (address) => address.users)
-  @JoinTable()
-  addresses: Address[];
+  /*  @ManyToMany(() => Address, (address) => address.users)
+   @JoinTable()
+   addresses: Address[]; */
 }
