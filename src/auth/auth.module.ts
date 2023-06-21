@@ -32,4 +32,4 @@ import { GqlJwtAuthGuard } from './guards/gql-authguard';
   ],
   exports: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}

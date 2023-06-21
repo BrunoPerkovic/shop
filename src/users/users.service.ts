@@ -62,6 +62,12 @@ export class UsersService {
     });
   }
 
+  async getUserByUsername(username: string): Promise<User> {
+    return await this.userRepository.findOneByOrFail({
+      userName: username,
+    });
+  }
+
   async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const user = await this.getUserById(id);
 
