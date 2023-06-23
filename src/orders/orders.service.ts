@@ -56,6 +56,19 @@ export class OrdersService {
     updateOrderDto: UpdateOrderDto,
   ): Promise<Order> {
     const order = await this.getOrderById(id);
+    const { userId, productIds, addressId, ...orderData } = updateOrderDto;
+
+    const user = await this.usersService.getUserById(userId);
+
+    const products = await this.productService.getProductsByIds(productIds);
+
+    const address = await this.addressService.getAddressById(addressId);
+
+    order.user = user;
+    order.products = products;
+    order.address = address;
+    order.name = orderData.name;
+    order.price = orderData.price;
 
     return order;
   }
