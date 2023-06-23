@@ -7,6 +7,7 @@ import {
   JoinTable,
 } from 'typeorm';
 import { Category } from 'src/category/entity/category.entity';
+import { Order } from 'src/orders/entities/order.entity';
 
 @Entity()
 @ObjectType()
@@ -35,4 +36,8 @@ export class Product {
   @ManyToMany(() => Category, (category) => category.products)
   @JoinTable()
   categories: Category[];
+
+  @Field(() => [Order])
+  @ManyToMany(() => Order, (order) => order.products)
+  orders: Order[];
 }

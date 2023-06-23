@@ -7,7 +7,4 @@ export class LoginUserDto {
 
   @Field(() => String, { description: 'Users password on the platform' })
   password: string;
-
-  @Field(() => String, { description: 'Users email on the platform' })
-  email: string;
 }

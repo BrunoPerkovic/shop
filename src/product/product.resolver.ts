@@ -43,8 +43,7 @@ export class ProductResolver {
   @Mutation(() => Boolean)
   async deleteProduct(
     @Args('id', { type: () => Int }) id: number,
-  ): Promise<boolean> {
+  ): Promise<void> {
     await this.productService.deleteProduct(id);
-    return true;
   }
 }

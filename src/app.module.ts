@@ -14,7 +14,10 @@ import { ProductModule } from './product/product.module';
 import { Product } from './product/entity/product.entity';
 import { Category } from './category/entity/category.entity';
 import { Address } from './address/entity/address.entity';
-import { User } from './users/entities/user.entity';
+import { Users } from './users/entities/users.entity';
+import { OrdersModule } from './orders/orders.module';
+import { Order } from './orders/entities/order.entity';
+import { AddressModule } from './address/address.module';
 
 @Module({
   imports: [
@@ -35,18 +38,20 @@ import { User } from './users/entities/user.entity';
         autoLoadEntities: true,
       }),
     }),
-    TypeOrmModule.forFeature([Product, Category, Address, User]),
-    UsersModule,
+    TypeOrmModule.forFeature([Product, Category, Address, Users, Order]),
     GraphQLModule.forRoot({
       sortSchema: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       driver: ApolloDriver,
     }),
-    AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
     ProductModule,
+    AuthModule,
+    UsersModule,
+    OrdersModule,
+    AddressModule,
   ],
   controllers: [AppController],
   providers: [AppService, ProductService, ProductResolver],

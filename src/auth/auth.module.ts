@@ -7,8 +7,6 @@ import { UsersModule } from 'src/users/users.module';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { ConfigService } from '@nestjs/config';
-import { APP_GUARD } from '@nestjs/core';
-import { GqlJwtAuthGuard } from './guards/gql-authguard';
 
 @Module({
   imports: [
@@ -29,7 +27,6 @@ import { GqlJwtAuthGuard } from './guards/gql-authguard';
     LocalStrategy,
     JwtStrategy,
     JwtService,
-    { provide: APP_GUARD, useClass: GqlJwtAuthGuard },
   ],
   exports: [AuthService, AuthResolver],
 })

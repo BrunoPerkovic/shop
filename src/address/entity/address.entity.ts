@@ -1,7 +1,9 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { User } from 'src/users/entities/user.entity';
-import { PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, OneToMany, Entity } from 'typeorm';
+import { Users } from 'src/users/entities/users.entity';
+import { Order } from 'src/orders/entities/order.entity';
 
+@Entity()
 @ObjectType()
 export class Address {
   @Field(() => Int)
@@ -13,12 +15,12 @@ export class Address {
   userId: number;
 
   @Field()
-  @Column({ name: 'street' })
-  street: string;
-
-  @Field()
   @Column({ name: 'street_number' })
   streetNumber: number;
+
+  @Field()
+  @Column({ name: 'street' })
+  street: string;
 
   @Field()
   @Column({ name: 'city' })
@@ -35,7 +37,12 @@ export class Address {
   @Field()
   @Column({ name: 'postal_code' })
   postalCode: number;
-  /* 
-    @ManyToMany(() => User, (user) => user.addresses)
-    users: User[]; */
+
+  @Field(() => [Users])
+  @OneToMany(() => Users, (user) => user.address)
+  users: Users[];
+
+  @Field(() => [Order])
+  @OneToMany(() => Order, (order) => order.address)
+  orders: Order[];
 }

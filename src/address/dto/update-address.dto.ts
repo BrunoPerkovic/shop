@@ -1,5 +1,8 @@
-import { createAddressDto } from './create-address.dto';
-import { InputType, PartialType } from '@nestjs/graphql';
+import { CreateAddressDto } from './create-address.dto';
+import { Field, InputType, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateAddressDto extends PartialType(createAddressDto) {}
+export class UpdateAddressDto extends PartialType(CreateAddressDto) {
+  @Field(() => Int)
+  id: number;
+}

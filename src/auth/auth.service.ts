@@ -1,20 +1,24 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
-import { User } from 'src/users/entities/user.entity';
+import { Users } from 'src/users/entities/users.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { LoginUserDto } from './dto/login-user.dto';
 import { LoginResponseDto } from './dto/login-response.dto';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
+import { ConfigService } from '@nestjs/config';
+import { CreateAddressDto } from 'src/address/dto/create-address.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
   ) {}
 
-  async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.usersService.getUserByEmail(email);
+  async validateUser(username: string, password: string): Promise<any> {
+    const user = await this.usersService.getUserByUsername(username);
 
     if (user) {
       if (await bcrypt.compare(password, user.password)) {
@@ -25,7 +29,7 @@ export class AuthService {
     return null;
   }
 
-  async generateUserCredentials(user: User): Promise<LoginResponseDto> {
+  async generateUserCredentials(user: Users): Promise<LoginResponseDto> {
     const payload = {
       email: user.email,
       userName: user.userName,
@@ -35,40 +39,43 @@ export class AuthService {
     };
 
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload, {
+        secret: this.configService.get<string>('JWT_SECRET'),
+      }),
       user: user,
     };
   }
 
-  /* async signup(id: number, loginUserInput: LoginUserDto) {
-    const user = await this.usersService.getUserById(id);
-
-    if (user) {
-      throw new Error(`User already exists`);
-    }
-
-    const password = await bcrypt.hash(user.password, 10);
-
-    return this.usersService.createUser({
-      ...loginUserInput,
-      password,
-    });
-  } */
-
-  //async signupUser() {}
-
   async loginUser(loginUserDto: LoginUserDto): Promise<LoginResponseDto> {
-    const user = await this.validateUser(
-      loginUserDto.email,
+    const validated = await this.validateUser(
+      loginUserDto.username,
       loginUserDto.password,
     );
+    if (!validated) return;
+    return await this.generateUserCredentials(validated);
+  }
 
-    if (!user) {
-      throw new BadRequestException(
-        `Email or password are invalid. Please try again`,
-      );
-    } else {
-      return this.generateUserCredentials(user);
+  async signupUser(
+    createUserDto: CreateUserDto,
+    createAddressDto: CreateAddressDto,
+  ): Promise<any> {
+    const user = await this.usersService.getUserByUsername(
+      createUserDto.userName,
+    );
+    if (user) {
+      throw new Error('User already exists');
     }
+
+    const newUser = new Users();
+
+    newUser.firstName = createUserDto.firstName;
+    newUser.lastName = createUserDto.lastName;
+    newUser.userName = createUserDto.userName;
+    newUser.password = await bcrypt.hash(createUserDto.password, 10);
+    newUser.email = createUserDto.email;
+    newUser.phone = createUserDto.phone;
+    newUser.deleted = createUserDto.deleted;
+
+    return await this.usersService.createUser(newUser, createAddressDto);
   }
 }

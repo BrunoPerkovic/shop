@@ -1,7 +1,7 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
 
 @InputType()
-export class createAddressDto {
+export class CreateAddressDto {
   @Field()
   street: string;
 
@@ -14,12 +14,9 @@ export class createAddressDto {
   @Field()
   county: string;
 
-  @Field(() => Int)
-  countyNumber: number;
-
   @Field()
   country: string;
 
-  @Field()
-  postalCode: string;
+  @Field(() => Int)
+  postalCode: number;
 }

@@ -9,9 +9,6 @@ export class CreateUserDto {
   lastName: string;
 
   @Field()
-  addressId: number;
-
-  @Field()
   userName: string;
 
   @Field()
