@@ -9,6 +9,9 @@ import {
 import { ShippingStatus } from '../enums/shipping-status.enum';
 import { PaymentMethods } from '../enums/payment-methods.enum';
 
+registerEnumType(ShippingStatus, { name: 'ShippingStatus' });
+registerEnumType(PaymentMethods, { name: 'PaymentMethods' });
+
 @InputType()
 export class CreateOrderDto {
   @Field(() => String)

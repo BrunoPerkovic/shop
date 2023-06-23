@@ -22,7 +22,7 @@ export class OrdersService {
     private readonly productService: ProductService,
     @InjectRepository(Address)
     private readonly addressService: AddressService,
-  ) {}
+  ) { }
 
   async createOrder(createOrderDto: CreateOrderDto): Promise<Order> {
     const { userId, productIds, addressId, ...orderData } = createOrderDto;

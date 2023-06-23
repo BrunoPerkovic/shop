@@ -1,6 +1,7 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, registerEnumType } from '@nestjs/graphql';
 import { Address } from 'src/address/entity/address.entity';
 import { Order } from 'src/orders/entities/order.entity';
+import { Role } from 'src/auth/roles/auth.roles';
 import {
   Column,
   CreateDateColumn,
@@ -11,6 +12,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+registerEnumType(Role, { name: 'Role' });
 
 @Entity()
 @ObjectType()
@@ -42,6 +45,10 @@ export class Users {
   @Field()
   @Column({ name: 'phone', unique: true, nullable: true })
   phone: string;
+
+  @Field(() => Role)
+  @Column({})
+  role: Role;
 
   @Field()
   @Column({ name: 'deleted', type: 'boolean', nullable: false })

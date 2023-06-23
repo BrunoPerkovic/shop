@@ -7,9 +7,12 @@ type Address {
   country: String!
   county: String!
   id: Int!
+  orders: [Order!]!
   postalCode: Float!
   street: String!
   streetNumber: Float!
+  userId: Float!
+  users: [Users!]!
 }
 
 type Category {
@@ -28,8 +31,18 @@ input CreateAddressDto {
 }
 
 input CreateOrderDto {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  addressId: Int!
+  createdAt: DateTime!
+  deleted: Boolean!
+  deliveryDate: DateTime!
+  name: String!
+  orderDate: DateTime!
+  paymentMethod: PaymentMethods!
+  price: Float!
+  productIds: [Int!]!
+  status: ShippingStatus!
+  updatedAt: DateTime!
+  userId: Int!
 }
 
 input CreateProductDto {
@@ -72,26 +85,40 @@ input LoginUserDto {
 type Mutation {
   createOrder(createOrderDto: CreateOrderDto!): Order!
   createProduct(createProductDto: CreateProductDto!): Product!
+  deleteOrder(id: Int!): Boolean!
   deleteProduct(id: Int!): Boolean!
   deleteUser(id: Int!): Users!
   loginUser(loginUserDto: LoginUserDto!): LoginResponseDto!
-  removeOrder(id: Int!): Order!
   signupUser(createAddressDto: CreateAddressDto!, createUserDto: CreateUserDto!): Users!
-  updateOrder(updateOrderDto: UpdateOrderDto!): Order!
+  updateOrder(id: Float!, updateOrderDto: UpdateOrderDto!): Order!
   updateProduct(id: Float!, updateProductDto: UpdateProductDto!): Product!
   updateUser(updateAddressDto: UpdateAddressDto!, updateUserDto: UpdateUserDto!): Users!
 }
 
 type Order {
+  address: Address!
   createdAt: DateTime!
+  deleted: Boolean!
   deliveryDate: DateTime!
   id: Int!
   name: String!
   orderDate: DateTime!
   paymentMethod: String!
   price: Float!
+  products: [Product!]!
   status: String!
   updatedAt: DateTime!
+  user: Users!
+}
+
+enum PaymentMethods {
+  AmazonPay
+  ApplePay
+  Card
+  Cash
+  GooglePay
+  PayPal
+  SamsungPay
 }
 
 type Product {
@@ -99,17 +126,31 @@ type Product {
   description: String!
   id: Int!
   name: String!
+  orders: [Order!]!
   price: Float!
   size: String!
 }
 
 type Query {
-  order(id: Int!): Order!
+  order(id: Float!): Order!
   orders: [Order!]!
   product(id: Float!): Product!
   products: [Product!]!
   user(username: Float!): Users!
   users: [Users!]!
+}
+
+enum Role {
+  Admin
+  User
+}
+
+enum ShippingStatus {
+  Cancelled
+  Delivered
+  Pending
+  Processing
+  Shipped
 }
 
 input UpdateAddressDto {
@@ -123,9 +164,19 @@ input UpdateAddressDto {
 }
 
 input UpdateOrderDto {
-  """Example field (placeholder)"""
-  exampleField: Int
+  addressId: Int
+  createdAt: DateTime
+  deleted: Boolean
+  deliveryDate: DateTime
   id: Int!
+  name: String
+  orderDate: DateTime
+  paymentMethod: PaymentMethods
+  price: Float
+  productIds: [Int!]
+  status: ShippingStatus
+  updatedAt: DateTime
+  userId: Int
 }
 
 input UpdateProductDto {
@@ -150,12 +201,16 @@ input UpdateUserDto {
 
 type Users {
   address: Address!
+  createdAt: DateTime!
   deleted: Boolean!
+  deletedAt: DateTime!
   email: String!
   firstName: String!
   id: Int!
   lastName: String!
+  orders: [Order!]!
   password: String!
   phone: String!
+  role: Role!
   userName: String!
 }

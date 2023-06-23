@@ -12,6 +12,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { PaymentMethods } from '../enums/payment-methods.enum';
+import { ShippingStatus } from '../enums/shipping-status.enum';
 
 @ObjectType()
 @Entity()
@@ -38,11 +40,11 @@ export class Order {
 
   @Field()
   @Column()
-  status: string;
+  status: ShippingStatus;
 
   @Field()
   @Column()
-  paymentMethod: string;
+  paymentMethod: PaymentMethods;
 
   @Field()
   @CreateDateColumn()
