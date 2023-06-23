@@ -1,7 +1,48 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import {
+  Field,
+  InputType,
+  GraphQLISODateTime,
+  Float,
+  Int,
+} from '@nestjs/graphql';
+import { ShippingStatus } from '../enums/shipping-status.enum';
+import { PaymentMethods } from '../enums/payment-methods.enum';
 
 @InputType()
 export class CreateOrderDto {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field(() => String)
+  name: string;
+
+  @Field(() => Float)
+  price: number;
+
+  @Field(() => GraphQLISODateTime)
+  orderDate: Date;
+
+  @Field(() => GraphQLISODateTime)
+  deliveryDate: Date;
+
+  @Field(() => ShippingStatus)
+  status: ShippingStatus;
+
+  @Field(() => PaymentMethods)
+  paymentMethod: PaymentMethods;
+
+  @Field(() => GraphQLISODateTime)
+  createdAt: Date;
+
+  @Field(() => GraphQLISODateTime)
+  updatedAt: Date;
+
+  @Field(() => Boolean)
+  deleted: boolean;
+
+  @Field(() => Int)
+  userId: number;
+
+  @Field(() => [Int])
+  productIds: number[];
+
+  @Field(() => Int)
+  addressId: number;
 }

@@ -3,6 +3,7 @@ import { Address } from 'src/address/entity/address.entity';
 import { Order } from 'src/orders/entities/order.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -44,6 +45,10 @@ export class Users {
   @Field()
   @Column({ name: 'deleted', type: 'boolean', nullable: false })
   deleted: boolean;
+
+  @Field()
+  @CreateDateColumn({ name: 'created_at', nullable: false })
+  createdAt: Date;
 
   @Field(() => Address, { nullable: false })
   @ManyToOne(() => Address, (address) => address.users)

@@ -1,16 +1,20 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Product } from 'src/product/entity/product.entity';
 import { Address } from 'src/address/entity/address.entity';
 import { Users } from 'src/users/entities/users.entity';
 import {
   Column,
+  CreateDateColumn,
+  Entity,
   JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @ObjectType()
+@Entity()
 export class Order {
   @Field(() => Int)
   @PrimaryGeneratedColumn()
@@ -41,12 +45,17 @@ export class Order {
   paymentMethod: string;
 
   @Field()
-  @Column()
+  @CreateDateColumn()
   createdAt: Date;
 
   @Field()
   @Column()
+  @UpdateDateColumn()
   updatedAt: Date;
+
+  @Field()
+  @Column()
+  deleted: boolean;
 
   @Field(() => Users)
   @ManyToOne(() => Users, (user) => user.orders)

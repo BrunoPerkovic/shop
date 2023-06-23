@@ -1,35 +1,49 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Args, Mutation, Int } from '@nestjs/graphql';
 import { OrdersService } from './orders.service';
 import { Order } from './entities/order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { Role } from 'src/auth/roles/auth.roles';
+import { Roles } from 'src/auth/roles/roles.decorator';
 
 @Resolver(() => Order)
 export class OrdersResolver {
-  constructor(private readonly ordersService: OrdersService) {}
+  constructor(private readonly orderService: OrdersService) { }
 
+  @Roles(Role.Admin)
   @Mutation(() => Order)
-  createOrder(@Args('createOrderDto') createOrderDto: CreateOrderDto) {
-    return this.ordersService.create(createOrderDto);
+  async createOrder(
+    @Args('createOrderDto') createOrderDto: CreateOrderDto,
+  ): Promise<Order> {
+    return await this.orderService.createOrder(createOrderDto);
   }
 
+  @Roles(Role.Admin)
   @Query(() => [Order], { name: 'orders' })
-  findAll() {
-    return this.ordersService.findAll();
+  async getAllOrders(): Promise<Order[]> {
+    return await this.orderService.getAllOrders();
   }
 
+  @Roles(Role.Admin)
   @Query(() => Order, { name: 'order' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.ordersService.findOne(id);
+  async getOrderById(@Args('id') id: number): Promise<Order> {
+    return await this.orderService.getOrderById(id);
   }
 
+  @Roles(Role.Admin)
   @Mutation(() => Order)
-  updateOrder(@Args('updateOrderDto') updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(updateOrderDto.id, updateOrderDto);
+  async updateOrder(
+    @Args('id') id: number,
+    @Args('updateOrderDto') updateOrderDto: UpdateOrderDto,
+  ): Promise<Order> {
+    return await this.orderService.updateOrder(id, updateOrderDto);
   }
 
-  @Mutation(() => Order)
-  removeOrder(@Args('id', { type: () => Int }) id: number) {
-    return this.ordersService.remove(id);
+  @Roles(Role.Admin)
+  @Mutation(() => Boolean)
+  async deleteOrder(
+    @Args('id', { type: () => Int }) id: number,
+  ): Promise<void> {
+    await this.orderService.deleteOrder(id);
   }
 }

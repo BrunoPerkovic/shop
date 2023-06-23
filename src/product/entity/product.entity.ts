@@ -39,5 +39,6 @@ export class Product {
 
   @Field(() => [Order])
   @ManyToMany(() => Order, (order) => order.products)
+  @JoinTable()
   orders: Order[];
 }
