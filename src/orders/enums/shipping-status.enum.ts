@@ -1,7 +1,7 @@
 export enum ShippingStatus {
-  Pending = 'pending',
-  Processing = 'processing',
-  Shipped = 'shipped',
-  Delivered = 'delivered',
-  Cancelled = 'cancelled',
+  Pending = 'Pending',
+  Processing = 'Processing',
+  Shipped = 'Shipped',
+  Delivered = 'Delivered',
+  Cancelled = 'Cancelled',
 }

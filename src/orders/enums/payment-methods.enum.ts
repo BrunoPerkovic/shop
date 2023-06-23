@@ -1,9 +1,9 @@
 export enum PaymentMethods {
-  Cash = 'cash',
-  Card = 'card',
-  PayPal = 'paypal',
-  GooglePay = 'googlepay',
-  ApplePay = 'applepay',
-  SamsungPay = 'samsungpay',
-  AmazonPay = 'amazonpay',
+  Cash = 'Cash',
+  Card = 'Card',
+  PayPal = 'Paypal',
+  GooglePay = 'Googlepay',
+  ApplePay = 'Applepay',
+  SamsungPay = 'Samsungpay',
+  AmazonPay = 'Amazonpay',
 }

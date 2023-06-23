@@ -4,6 +4,7 @@ import {
   GraphQLISODateTime,
   Float,
   Int,
+  registerEnumType
 } from '@nestjs/graphql';
 import { ShippingStatus } from '../enums/shipping-status.enum';
 import { PaymentMethods } from '../enums/payment-methods.enum';
