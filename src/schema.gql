@@ -54,6 +54,7 @@ input CreateProductDto {
 }
 
 input CreateUserDto {
+  address: CreateAddressDto!
   deleted: Boolean!
   email: String!
   firstName: String!
@@ -189,6 +190,7 @@ input UpdateProductDto {
 }
 
 input UpdateUserDto {
+  address: CreateAddressDto
   deleted: Boolean
   email: String
   firstName: String

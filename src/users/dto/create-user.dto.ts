@@ -1,4 +1,6 @@
 import { InputType, Field } from '@nestjs/graphql';
+import { CreateAddressDto } from 'src/address/dto/create-address.dto';
+import { Address } from 'src/address/entity/address.entity';
 
 @InputType()
 export class CreateUserDto {
@@ -22,4 +24,7 @@ export class CreateUserDto {
 
   @Field()
   deleted: boolean;
+
+  @Field(() => CreateAddressDto)
+  address: Address;
 }
