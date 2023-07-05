@@ -8,7 +8,7 @@ import { Role } from 'src/auth/roles/auth.roles';
 
 @Resolver(() => Product)
 export class ProductResolver {
-  constructor(private readonly productService: ProductService) { }
+  constructor(private readonly productService: ProductService) {}
 
   @Roles(Role.Admin)
   @Mutation(() => Product)

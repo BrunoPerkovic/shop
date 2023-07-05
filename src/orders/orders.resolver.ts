@@ -8,7 +8,7 @@ import { Roles } from 'src/auth/roles/roles.decorator';
 
 @Resolver(() => Order)
 export class OrdersResolver {
-  constructor(private readonly orderService: OrdersService) { }
+  constructor(private readonly orderService: OrdersService) {}
 
   @Roles(Role.Admin)
   @Mutation(() => Order)

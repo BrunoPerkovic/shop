@@ -55,4 +55,11 @@ export class GqlJwtAuthGuard extends AuthGuard('jwt') {
       throw new HttpException(message, HttpStatus.UNAUTHORIZED);
     }
   }
+
+  handleRequest<TUser = any>(err: any, user: any): TUser {
+    if (err || !user) {
+      throw err || new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+    return user;
+  }
 }
