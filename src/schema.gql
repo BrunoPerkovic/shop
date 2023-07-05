@@ -8,10 +8,9 @@ type Address {
   county: String!
   id: Int!
   orders: [Order!]!
-  postalCode: Float!
+  postalCode: Int!
   street: String!
-  streetNumber: Float!
-  userId: Float!
+  streetNumber: Int!
   users: [Users!]!
 }
 
@@ -91,8 +90,8 @@ type Mutation {
   deleteUser(id: Int!): Users!
   loginUser(loginUserDto: LoginUserDto!): LoginResponseDto!
   signupUser(createAddressDto: CreateAddressDto!, createUserDto: CreateUserDto!): Users!
-  updateOrder(id: Float!, updateOrderDto: UpdateOrderDto!): Order!
-  updateProduct(id: Float!, updateProductDto: UpdateProductDto!): Product!
+  updateOrder(id: Int!, updateOrderDto: UpdateOrderDto!): Order!
+  updateProduct(id: Int!, updateProductDto: UpdateProductDto!): Product!
   updateUser(updateAddressDto: UpdateAddressDto!, updateUserDto: UpdateUserDto!): Users!
 }
 
@@ -133,11 +132,11 @@ type Product {
 }
 
 type Query {
-  order(id: Float!): Order!
+  order(id: Int!): Order!
   orders: [Order!]!
-  product(id: Float!): Product!
+  product(id: Int!): Product!
   products: [Product!]!
-  user(username: Float!): Users!
+  user(username: Int!): Users!
   users: [Users!]!
 }
 

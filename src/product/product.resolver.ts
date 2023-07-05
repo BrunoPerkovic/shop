@@ -26,14 +26,22 @@ export class ProductResolver {
 
   @Roles(Role.Admin)
   @Query(() => Product, { name: 'product' })
-  async getProductById(@Args('id') id: number): Promise<Product> {
+  async getProductById(
+    @Args('id', {
+      type: () => Int,
+    })
+    id: number,
+  ): Promise<Product> {
     return await this.productService.getProductById(id);
   }
 
   @Roles(Role.Admin)
   @Mutation(() => Product)
   async updateProduct(
-    @Args('id') id: number,
+    @Args('id', {
+      type: () => Int,
+    })
+    id: number,
     @Args('updateProductDto') updateProductDto: UpdateProductDto,
   ): Promise<Product> {
     return await this.productService.updateProduct(id, updateProductDto);

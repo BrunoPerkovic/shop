@@ -11,12 +11,17 @@ export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @Query(() => [Users], { name: 'users' })
-  findAll() {
+  getAllUsers() {
     return this.usersService.getAllUsers();
   }
 
   @Query(() => Users, { name: 'user' })
-  findOne(@Args('username') id: number) {
+  getUserById(
+    @Args('username', {
+      type: () => Int,
+    })
+    id: number,
+  ) {
     return this.usersService.getUserById(id);
   }
 

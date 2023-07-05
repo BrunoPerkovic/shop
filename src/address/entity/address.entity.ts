@@ -10,11 +10,7 @@ export class Address {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
-  @Column({ name: 'user_id' })
-  userId: number;
-
-  @Field()
+  @Field(() => Int, { nullable: false })
   @Column({ name: 'street_number' })
   streetNumber: number;
 
@@ -34,7 +30,7 @@ export class Address {
   @Column({ name: 'country' })
   country: string;
 
-  @Field()
+  @Field(() => Int, { nullable: false })
   @Column({ name: 'postal_code' })
   postalCode: number;
 

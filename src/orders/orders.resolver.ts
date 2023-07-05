@@ -26,14 +26,22 @@ export class OrdersResolver {
 
   @Roles(Role.Admin)
   @Query(() => Order, { name: 'order' })
-  async getOrderById(@Args('id') id: number): Promise<Order> {
+  async getOrderById(
+    @Args('id', {
+      type: () => Int,
+    })
+    id: number,
+  ): Promise<Order> {
     return await this.orderService.getOrderById(id);
   }
 
   @Roles(Role.Admin)
   @Mutation(() => Order)
   async updateOrder(
-    @Args('id') id: number,
+    @Args('id', {
+      type: () => Int,
+    })
+    id: number,
     @Args('updateOrderDto') updateOrderDto: UpdateOrderDto,
   ): Promise<Order> {
     return await this.orderService.updateOrder(id, updateOrderDto);
