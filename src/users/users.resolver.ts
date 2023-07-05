@@ -2,7 +2,6 @@ import { Resolver, Query, Args, Mutation, Int } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { Users } from './entities/users.entity';
 import { UseGuards, UseInterceptors } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { OnlySameUserByIdAllowed } from './users.interceptor';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateAddressDto } from 'src/address/dto/update-address.dto';
