@@ -7,7 +7,6 @@ import { LoginResponseDto } from './dto/login-response.dto';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { ConfigService } from '@nestjs/config';
-import { CreateAddressDto } from 'src/address/dto/create-address.dto';
 
 @Injectable()
 export class AuthService {
@@ -55,10 +54,7 @@ export class AuthService {
     return await this.generateUserCredentials(validated);
   }
 
-  async signupUser(
-    createUserDto: CreateUserDto,
-    createAddressDto: CreateAddressDto,
-  ): Promise<any> {
+  async signupUser(createUserDto: CreateUserDto): Promise<any> {
     const user = await this.usersService.getUserByUsername(
       createUserDto.userName,
     );
@@ -76,6 +72,6 @@ export class AuthService {
     newUser.phone = createUserDto.phone;
     newUser.deleted = createUserDto.deleted;
 
-    return await this.usersService.createUser(newUser, createAddressDto);
+    return await this.usersService.createUser(newUser);
   }
 }

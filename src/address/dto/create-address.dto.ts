@@ -1,4 +1,6 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
+import { County } from '../enums/county.enum';
+import { CountyCodesCroatia } from '../enums/county_codes.enum';
 
 @InputType()
 export class CreateAddressDto {
@@ -11,8 +13,11 @@ export class CreateAddressDto {
   @Field()
   city: string;
 
-  @Field()
-  county: string;
+  @Field(() => County, { nullable: false })
+  county: County;
+
+  @Field(() => CountyCodesCroatia, { nullable: false })
+  countyCode: CountyCodesCroatia;
 
   @Field()
   country: string;

@@ -13,7 +13,10 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-registerEnumType(Role, { name: 'Role' });
+registerEnumType(Role, {
+  name: 'Role',
+  description: 'User roles on the platform',
+});
 
 @Entity()
 @ObjectType()
@@ -47,7 +50,13 @@ export class Users {
   phone: string;
 
   @Field(() => Role)
-  @Column({})
+  @Column({
+    name: 'role',
+    type: 'enum',
+    enum: Role,
+    default: Role.User,
+    nullable: false,
+  })
   role: Role;
 
   @Field()

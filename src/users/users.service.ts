@@ -3,15 +3,14 @@ import {
   ConflictException,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from './entities/users.entity';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
-import { CreateAddressDto } from 'src/address/dto/create-address.dto';
 import { Address } from 'src/address/entity/address.entity';
 import { UpdateAddressDto } from 'src/address/dto/update-address.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -21,38 +20,37 @@ export class UsersService {
     private readonly addressRepository: Repository<Address>,
   ) {}
 
-  async createUser(
-    createUserDto: CreateUserDto,
-    createAddressDto: CreateAddressDto,
-  ): Promise<Users> {
+  async createUser(createUserDto: CreateUserDto): Promise<Users> {
     const saltOrRounds = 10;
 
     try {
-      const { street, streetNumber, city, county, country, postalCode } =
-        createAddressDto;
+      const {
+        firstName,
+        lastName,
+        userName,
+        password,
+        email,
+        phone,
+        deleted,
+        address: createAddressDto,
+      } = createUserDto;
 
-      const address = this.addressRepository.create({
-        street,
-        streetNumber,
-        city,
-        county,
-        country,
-        postalCode,
-      });
+      const address = this.addressRepository.create(createAddressDto);
+      await this.addressRepository.save(address);
 
       const user = this.userRepository.create({
-        firstName: createUserDto.firstName,
-        lastName: createUserDto.lastName,
-        userName: createUserDto.userName,
-        password: await bcrypt.hash(createUserDto.password, saltOrRounds),
-        email: createUserDto.email,
-        phone: createUserDto.phone,
-        deleted: createUserDto.deleted,
-        address: address,
+        firstName,
+        lastName,
+        userName,
+        password: await bcrypt.hash(password, saltOrRounds),
+        email,
+        phone,
+        deleted,
+        address, // Associate the created address
       });
 
-      await this.addressRepository.save(address);
-      return await this.userRepository.save(user);
+      await this.userRepository.save(user);
+      return user;
     } catch (error) {
       if (error.code === '23505') {
         if (error.detail.includes('user_name')) {
@@ -71,11 +69,9 @@ export class UsersService {
           );
         }
       }
-      throw new Error(
-        'Something went wrong with creating your profile. Most likely wrong input.',
-      );
     }
   }
+
   async getAllUsers(): Promise<Users[]> {
     return await this.userRepository.find();
   }

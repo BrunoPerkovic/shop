@@ -1,6 +1,6 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { CreateAddressDto } from 'src/address/dto/create-address.dto';
-import { Address } from 'src/address/entity/address.entity';
+import { Role } from 'src/auth/roles/auth.roles';
 
 @InputType()
 export class CreateUserDto {
@@ -22,9 +22,12 @@ export class CreateUserDto {
   @Field()
   phone: string;
 
+  @Field(() => Role)
+  role: Role;
+
   @Field()
   deleted: boolean;
 
   @Field(() => CreateAddressDto)
-  address: Address;
+  address: CreateAddressDto;
 }

@@ -1,7 +1,19 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, registerEnumType } from '@nestjs/graphql';
 import { PrimaryGeneratedColumn, Column, OneToMany, Entity } from 'typeorm';
 import { Users } from 'src/users/entities/users.entity';
 import { Order } from 'src/orders/entities/order.entity';
+import { County } from '../enums/county.enum';
+import { CountyCodesCroatia } from '../enums/county_codes.enum';
+
+registerEnumType(County, {
+  name: 'County',
+  description: 'Counties in Croatia',
+});
+
+registerEnumType(CountyCodesCroatia, {
+  name: 'CountyCodesCroatia',
+  description: 'County codes in Croatia',
+});
 
 @Entity()
 @ObjectType()
@@ -22,9 +34,23 @@ export class Address {
   @Column({ name: 'city' })
   city: string;
 
-  @Field()
-  @Column({ name: 'county' })
-  county: string;
+  @Field(() => County)
+  @Column({
+    name: 'county',
+    type: 'enum',
+    enum: County,
+    nullable: false,
+  })
+  county: County;
+
+  @Field(() => CountyCodesCroatia)
+  @Column({
+    name: 'county_code',
+    type: 'enum',
+    enum: CountyCodesCroatia,
+    nullable: false,
+  })
+  countyCode: CountyCodesCroatia;
 
   @Field()
   @Column({ name: 'country' })

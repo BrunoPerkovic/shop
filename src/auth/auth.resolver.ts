@@ -5,7 +5,6 @@ import { UsersService } from 'src/users/users.service';
 import { Users } from 'src/users/entities/users.entity';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { CreateAddressDto } from 'src/address/dto/create-address.dto';
 
 @Resolver()
 export class AuthResolver {
@@ -17,13 +16,11 @@ export class AuthResolver {
   @Mutation(() => Users)
   async signupUser(
     @Args('createUserDto') createUserDto: CreateUserDto,
-    @Args('createAddressDto') createAddressDto: CreateAddressDto,
   ): Promise<Users> {
-    return this.usersService.createUser(createUserDto, createAddressDto);
+    return this.usersService.createUser(createUserDto);
   }
 
   @Mutation(() => LoginResponseDto)
-  //@UseGuards(GqlJwtAuthGuard)
   async loginUser(
     @Args('loginUserDto') loginUserDto: LoginUserDto,
   ): Promise<LoginResponseDto> {

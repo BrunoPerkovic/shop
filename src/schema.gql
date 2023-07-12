@@ -5,7 +5,8 @@
 type Address {
   city: String!
   country: String!
-  county: String!
+  county: County!
+  countyCode: CountyCodesCroatia!
   id: Int!
   orders: [Order!]!
   postalCode: Int!
@@ -20,10 +21,61 @@ type Category {
   products: [Product!]!
 }
 
+"""Counties in Croatia"""
+enum County {
+  BjelovarskoBilogorskaZupanija
+  BrodskoPosavskaZupanija
+  DubrovackoNeretvanskaZupanija
+  GradZagreb
+  IstarskaZupanija
+  KarlovackaZupanija
+  KoprivnickoKrizevackaZupanija
+  KrapinskoZagorskaZupanija
+  LickoSenjskaZupanija
+  MedimurskaZupanija
+  OsjeckoBaranjskaZupanija
+  PozeskoSlavonskaZupanija
+  PrimorskoGoranskaZupanija
+  SibenskoKninskaZupanija
+  SisackoMoslavackaZupanija
+  SplitskoDalmatinskaZupanija
+  VarazdinskaZupanija
+  VirovitickoPodravskaZupanija
+  VukovarskoSrijemskaZupanija
+  ZadarskaZupanija
+  ZagrebackaZupanija
+}
+
+"""County codes in Croatia"""
+enum CountyCodesCroatia {
+  Bjelovarsko_bilogorska_zupanija
+  Brodsko_posavska_zupanija
+  Dubrovacko_neretvanska_zupanija
+  Grad_Zagreb
+  Istarska_zupanija
+  Karlovacka_zupanija
+  Koprivnicko_krizevacka_zupanija
+  Krapinsko_zagorska_zupanija
+  Licko_senjska_zupanija
+  Medimurska_zupanija
+  Osjecko_baranjska_zupanija
+  Pozesko_slavonska_zupanija
+  Primorsko_goranska_zupanija
+  Sibensko_kninska_zupanija
+  Sisacko_moslavacka_zupanija
+  Splitsko_dalmatinska_zupanija
+  Varazdinska_zupanija
+  Viroviticko_podravska_zupanija
+  Vukovarsko_srijemska_zupanija
+  Zadarska_zupanija
+  Zagrebacka_zupanija
+}
+
 input CreateAddressDto {
   city: String!
   country: String!
-  county: String!
+  county: County!
+  countyCode: CountyCodesCroatia!
   postalCode: Int!
   street: String!
   streetNumber: Int!
@@ -60,6 +112,7 @@ input CreateUserDto {
   lastName: String!
   password: String!
   phone: String!
+  role: Role!
   userName: String!
 }
 
@@ -89,7 +142,7 @@ type Mutation {
   deleteProduct(id: Int!): Boolean!
   deleteUser(id: Int!): Users!
   loginUser(loginUserDto: LoginUserDto!): LoginResponseDto!
-  signupUser(createAddressDto: CreateAddressDto!, createUserDto: CreateUserDto!): Users!
+  signupUser(createUserDto: CreateUserDto!): Users!
   updateOrder(id: Int!, updateOrderDto: UpdateOrderDto!): Order!
   updateProduct(id: Int!, updateProductDto: UpdateProductDto!): Product!
   updateUser(updateAddressDto: UpdateAddressDto!, updateUserDto: UpdateUserDto!): Users!
@@ -140,6 +193,7 @@ type Query {
   users: [Users!]!
 }
 
+"""User roles on the platform"""
 enum Role {
   Admin
   User
@@ -156,7 +210,8 @@ enum ShippingStatus {
 input UpdateAddressDto {
   city: String
   country: String
-  county: String
+  county: County
+  countyCode: CountyCodesCroatia
   id: Int!
   postalCode: Int
   street: String
@@ -197,6 +252,7 @@ input UpdateUserDto {
   lastName: String
   password: String
   phone: String
+  role: Role
   userName: String
 }
 
