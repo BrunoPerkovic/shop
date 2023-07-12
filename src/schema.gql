@@ -189,7 +189,9 @@ type Query {
   orders: [Order!]!
   product(id: Int!): Product!
   products: [Product!]!
-  user(username: Int!): Users!
+  user(id: Int!): Users!
+  userByEmail(email: String!): Users!
+  userByName(userName: String!): Users!
   users: [Users!]!
 }
 

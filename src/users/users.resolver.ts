@@ -17,12 +17,32 @@ export class UsersResolver {
 
   @Query(() => Users, { name: 'user' })
   getUserById(
-    @Args('username', {
+    @Args('id', {
       type: () => Int,
     })
     id: number,
   ) {
     return this.usersService.getUserById(id);
+  }
+
+  @Query(() => Users, { name: 'userByName' })
+  getUserByName(
+    @Args('userName', {
+      type: () => String,
+    })
+    userName: string,
+  ) {
+    return this.usersService.getUserByUsername(userName);
+  }
+
+  @Query(() => Users, { name: 'userByEmail' })
+  getUserByEmail(
+    @Args('email', {
+      type: () => String,
+    })
+    email: string,
+  ) {
+    return this.usersService.getUserByEmail(email);
   }
 
   //@UseGuards(JwtAuthGuard)

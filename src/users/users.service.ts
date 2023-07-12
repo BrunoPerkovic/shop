@@ -48,7 +48,7 @@ export class UsersService {
         phone,
         deleted,
         role,
-        address, // Associate the created address
+        address,
       });
 
       await this.userRepository.save(user);
