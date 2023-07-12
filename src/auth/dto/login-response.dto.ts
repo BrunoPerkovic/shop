@@ -7,7 +7,4 @@ export class LoginResponseDto {
     description: 'Generated access_token of the user',
   })
   access_token: string;
-
-  @Field(() => Users)
-  user: Users;
 }

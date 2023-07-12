@@ -124,7 +124,6 @@ scalar DateTime
 type LoginResponseDto {
   """Generated access_token of the user"""
   access_token: String!
-  user: Users!
 }
 
 input LoginUserDto {

@@ -14,7 +14,7 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
-  ) {}
+  ) { }
 
   async validateUser(username: string, password: string): Promise<any> {
     const user = await this.usersService.getUserByUsername(username);
@@ -22,7 +22,7 @@ export class AuthService {
     if (user) {
       if (await bcrypt.compare(password, user.password)) {
         //delete user.password;
-        return user;
+        return true;
       }
     }
     return null;
@@ -41,7 +41,6 @@ export class AuthService {
       access_token: this.jwtService.sign(payload, {
         secret: this.configService.get<string>('JWT_SECRET'),
       }),
-      user: user,
     };
   }
 
