@@ -31,6 +31,7 @@ export class UsersService {
         password,
         email,
         phone,
+        role,
         deleted,
         address: createAddressDto,
       } = createUserDto;
@@ -46,6 +47,7 @@ export class UsersService {
         email,
         phone,
         deleted,
+        role,
         address, // Associate the created address
       });
 
