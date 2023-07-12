@@ -54,8 +54,8 @@ export class Users {
     name: 'role',
     type: 'enum',
     enum: Role,
-    default: Role.User,
     nullable: false,
+    default: Role.User,
   })
   role: Role;
 
