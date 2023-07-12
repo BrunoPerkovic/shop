@@ -21,7 +21,7 @@ export class AuthService {
 
     if (user) {
       if (await bcrypt.compare(password, user.password)) {
-        delete user.password;
+        //delete user.password;
         return user;
       }
     }
