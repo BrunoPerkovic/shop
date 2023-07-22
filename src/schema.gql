@@ -96,6 +96,11 @@ input CreateOrderDto {
   userId: Int!
 }
 
+input CreatePostInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 input CreateProductDto {
   categories: [Int!]!
   description: String!
@@ -136,13 +141,16 @@ input LoginUserDto {
 
 type Mutation {
   createOrder(createOrderDto: CreateOrderDto!): Order!
+  createPost(createPostInput: CreatePostInput!): Post!
   createProduct(createProductDto: CreateProductDto!): Product!
   deleteOrder(id: Int!): Boolean!
   deleteProduct(id: Int!): Boolean!
   deleteUser(id: Int!): Users!
   loginUser(loginUserDto: LoginUserDto!): LoginResponseDto!
+  removePost(id: Int!): Post!
   signupUser(createUserDto: CreateUserDto!): Users!
   updateOrder(id: Int!, updateOrderDto: UpdateOrderDto!): Order!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
   updateProduct(id: Int!, updateProductDto: UpdateProductDto!): Product!
   updateUser(updateAddressDto: UpdateAddressDto!, updateUserDto: UpdateUserDto!): Users!
 }
@@ -173,6 +181,11 @@ enum PaymentMethods {
   SamsungPay
 }
 
+type Post {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type Product {
   categories: [Category!]!
   description: String!
@@ -186,6 +199,8 @@ type Product {
 type Query {
   order(id: Int!): Order!
   orders: [Order!]!
+  post(id: Int!): Post!
+  posts: [Post!]!
   product(id: Int!): Product!
   products: [Product!]!
   userByEmail(email: String!): Users!
@@ -233,6 +248,12 @@ input UpdateOrderDto {
   status: ShippingStatus
   updatedAt: DateTime
   userId: Int
+}
+
+input UpdatePostInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input UpdateProductDto {

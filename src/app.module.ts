@@ -18,6 +18,7 @@ import { Users } from './users/entities/users.entity';
 import { OrdersModule } from './orders/orders.module';
 import { Order } from './orders/entities/order.entity';
 import { AddressModule } from './address/address.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { AddressModule } from './address/address.module';
     UsersModule,
     OrdersModule,
     AddressModule,
+    PostsModule,
   ],
   controllers: [AppController],
   providers: [AppService, ProductService, ProductResolver],
