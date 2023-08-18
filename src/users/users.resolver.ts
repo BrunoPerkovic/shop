@@ -8,7 +8,7 @@ import { UpdateAddressDto } from 'src/address/dto/update-address.dto';
 
 @Resolver(() => Users)
 export class UsersResolver {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @Query(() => [Users], { name: 'users' })
   getAllUsers() {

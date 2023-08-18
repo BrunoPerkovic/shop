@@ -1,4 +1,4 @@
-import { CreatePostInput } from './create-post.input';
+import { CreatePostInput } from './create-post.dto';
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()

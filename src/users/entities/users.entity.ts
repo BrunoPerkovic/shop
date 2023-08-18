@@ -12,6 +12,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Post } from 'src/posts/entities/post.entity';
 
 registerEnumType(Role, {
   name: 'Role',
@@ -79,4 +80,8 @@ export class Users {
   @Field(() => [Order])
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
+
+  @Field(() => Post, { description: 'authos posts'})
+  @OneToMany(() => Post, (post) => post.author)
+  posts: Post[];
 }
