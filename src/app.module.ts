@@ -19,6 +19,7 @@ import { OrdersModule } from './orders/orders.module';
 import { Order } from './orders/entities/order.entity';
 import { AddressModule } from './address/address.module';
 import { PostsModule } from './posts/posts.module';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -27,7 +28,6 @@ import { PostsModule } from './posts/posts.module';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
-        host: 'localhost',
         port: configService.get<number>('DB_PORT'),
         username: configService.get<string>('DB_USER'),
         password: configService.get<string>('DB_PASS'),
@@ -54,8 +54,9 @@ import { PostsModule } from './posts/posts.module';
     OrdersModule,
     AddressModule,
     PostsModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService, ProductService, ProductResolver],
 })
-export class AppModule {}
+export class AppModule { }

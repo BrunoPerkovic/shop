@@ -3,12 +3,14 @@ import { Users } from 'src/users/entities/users.entity';
 import {
   Column,
   CreateDateColumn,
+  Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
+@Entity()
 @ObjectType()
 export class Post {
   @Field(() => Int, { description: 'post id' })

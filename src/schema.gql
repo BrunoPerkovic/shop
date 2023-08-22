@@ -81,6 +81,11 @@ input CreateAddressDto {
   streetNumber: Int!
 }
 
+input CreateFileInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 input CreateOrderDto {
   addressId: Int!
   createdAt: DateTime!
@@ -126,6 +131,11 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type File {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type LoginResponseDto {
   """Generated access_token of the user"""
   access_token: String!
@@ -140,6 +150,7 @@ input LoginUserDto {
 }
 
 type Mutation {
+  createFile(createFileInput: CreateFileInput!): File!
   createOrder(createOrderDto: CreateOrderDto!): Order!
   createPost(createPostInput: CreatePostInput!): Post!
   createProduct(createProductDto: CreateProductDto!): Product!
@@ -147,8 +158,10 @@ type Mutation {
   deleteProduct(id: Int!): Boolean!
   deleteUser(id: Int!): Users!
   loginUser(loginUserDto: LoginUserDto!): LoginResponseDto!
+  removeFile(id: Int!): File!
   removePost(id: Int!): Post!
   signupUser(createUserDto: CreateUserDto!): Users!
+  updateFile(updateFileInput: UpdateFileInput!): File!
   updateOrder(id: Int!, updateOrderDto: UpdateOrderDto!): Order!
   updatePost(updatePostInput: UpdatePostInput!): Post!
   updateProduct(id: Int!, updateProductDto: UpdateProductDto!): Product!
@@ -182,8 +195,32 @@ enum PaymentMethods {
 }
 
 type Post {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """author id"""
+  author: Users!
+
+  """total comments"""
+  comments: Int!
+
+  """post content"""
+  content: String!
+
+  """post creation date"""
+  createdAt: DateTime!
+
+  """post id"""
+  id: Int!
+
+  """post is archived"""
+  isArchived: Boolean!
+
+  """total likes"""
+  likes: Int!
+
+  """post title"""
+  title: String!
+
+  """post update date"""
+  updatedAt: DateTime!
 }
 
 type Product {
@@ -197,6 +234,7 @@ type Product {
 }
 
 type Query {
+  file(id: Int!): File!
   order(id: Int!): Order!
   orders: [Order!]!
   post(id: Int!): Post!
@@ -232,6 +270,12 @@ input UpdateAddressDto {
   postalCode: Int
   street: String
   streetNumber: Int
+}
+
+input UpdateFileInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input UpdateOrderDto {
@@ -290,6 +334,9 @@ type Users {
   orders: [Order!]!
   password: String!
   phone: String!
+
+  """authos posts"""
+  posts: Post!
   role: Role!
   userName: String!
 }
