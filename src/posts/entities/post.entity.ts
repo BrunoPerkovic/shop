@@ -47,5 +47,5 @@ export class Post {
 
   @Field(() => Users, { description: 'author id' })
   @ManyToOne(() => Users, (user) => user.posts)
-  author: Users; // Should be 'Users' instead of 'Users'
+  author: Users;
 }

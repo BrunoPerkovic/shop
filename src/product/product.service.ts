@@ -13,7 +13,7 @@ export class ProductService {
     private readonly productRepository: Repository<Product>,
     @InjectRepository(Category)
     private readonly categoryRepository: Repository<Category>,
-  ) {}
+  ) { }
 
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
     const queryBuilder = this.categoryRepository.createQueryBuilder('category');

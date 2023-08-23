@@ -19,8 +19,8 @@ import { OrdersModule } from './orders/orders.module';
 import { Order } from './orders/entities/order.entity';
 import { AddressModule } from './address/address.module';
 import { PostsModule } from './posts/posts.module';
-import { FileModule } from './file/file.module';
-
+/* import { UploadScalar } from './file/upload.scalar';
+ */
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -44,6 +44,10 @@ import { FileModule } from './file/file.module';
       sortSchema: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       driver: ApolloDriver,
+      uploads: {
+        maxFileSize: 20000000,
+        maxFiles: 5,
+      },
     }),
     ConfigModule.forRoot({
       isGlobal: true,
@@ -54,7 +58,6 @@ import { FileModule } from './file/file.module';
     OrdersModule,
     AddressModule,
     PostsModule,
-    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService, ProductService, ProductResolver],

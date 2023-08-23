@@ -81,7 +81,7 @@ export class Users {
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
 
-  @Field(() => Post, { description: 'authos posts'})
+  @Field(() => Post, { description: 'authos posts' })
   @OneToMany(() => Post, (post) => post.author)
   posts: Post[];
 }

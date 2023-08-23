@@ -1,7 +1,11 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { Column } from 'typeorm';
 
 @InputType()
-export class CreatePostInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+export class CreatePostDto {
+  @Field(() => Int, { description: 'post title' })
+  title: string;
+
+  @Field(() => Int, { description: 'post content' })
+  content: string;
 }

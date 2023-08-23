@@ -81,11 +81,6 @@ input CreateAddressDto {
   streetNumber: Int!
 }
 
-input CreateFileInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 input CreateOrderDto {
   addressId: Int!
   createdAt: DateTime!
@@ -101,9 +96,12 @@ input CreateOrderDto {
   userId: Int!
 }
 
-input CreatePostInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+input CreatePostDto {
+  """post content"""
+  content: Int!
+
+  """post title"""
+  title: Int!
 }
 
 input CreateProductDto {
@@ -131,11 +129,6 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type File {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 type LoginResponseDto {
   """Generated access_token of the user"""
   access_token: String!
@@ -150,20 +143,23 @@ input LoginUserDto {
 }
 
 type Mutation {
-  createFile(createFileInput: CreateFileInput!): File!
   createOrder(createOrderDto: CreateOrderDto!): Order!
-  createPost(createPostInput: CreatePostInput!): Post!
+
+  """Create new post"""
+  createPost(createPostDto: CreatePostDto!): Post!
   createProduct(createProductDto: CreateProductDto!): Product!
   deleteOrder(id: Int!): Boolean!
+
+  """Delete post"""
+  deletePost(id: Int!): Post!
   deleteProduct(id: Int!): Boolean!
   deleteUser(id: Int!): Users!
   loginUser(loginUserDto: LoginUserDto!): LoginResponseDto!
-  removeFile(id: Int!): File!
-  removePost(id: Int!): Post!
   signupUser(createUserDto: CreateUserDto!): Users!
-  updateFile(updateFileInput: UpdateFileInput!): File!
   updateOrder(id: Int!, updateOrderDto: UpdateOrderDto!): Order!
-  updatePost(updatePostInput: UpdatePostInput!): Post!
+
+  """Update post"""
+  updatePost(updatePostDto: UpdatePostDto!): Post!
   updateProduct(id: Int!, updateProductDto: UpdateProductDto!): Product!
   updateUser(updateAddressDto: UpdateAddressDto!, updateUserDto: UpdateUserDto!): Users!
 }
@@ -234,10 +230,13 @@ type Product {
 }
 
 type Query {
-  file(id: Int!): File!
   order(id: Int!): Order!
   orders: [Order!]!
+
+  """Get single post"""
   post(id: Int!): Post!
+
+  """Get all posts"""
   posts: [Post!]!
   product(id: Int!): Product!
   products: [Product!]!
@@ -272,12 +271,6 @@ input UpdateAddressDto {
   streetNumber: Int
 }
 
-input UpdateFileInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
-}
-
 input UpdateOrderDto {
   addressId: Int
   createdAt: DateTime
@@ -294,10 +287,13 @@ input UpdateOrderDto {
   userId: Int
 }
 
-input UpdatePostInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+input UpdatePostDto {
+  """post content"""
+  content: Int
   id: Int!
+
+  """post title"""
+  title: Int
 }
 
 input UpdateProductDto {
